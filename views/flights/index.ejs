@@ -1,0 +1,29 @@
+<%- include('../partials/header')%>
+
+<h1>Flights List </h1>
+<table>
+    <thead>
+      <tr>
+        <th>Airline</th>
+        <th>Airport</th>
+        <th>Flight #</th>
+        <th>Departure Date/Time</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <% flights.forEach(function(f) { %>
+
+        <tr class="<%= (f.departs < new Date()) ? 'red' : '' %>">
+            <td><%= f.airline %></td>
+            <td><%= f.airport %></td>
+            <td><%= f.flightNo %></td>
+            <td><%= f.departs %></td>
+        </tr>
+
+        <% }); %>
+
+    </tbody>
+</table>
+
+<%- include('../partials/footer')%>
