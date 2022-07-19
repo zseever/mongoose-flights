@@ -3,15 +3,25 @@ const Flight = require('../models/flight');
 module.exports = {
     index,
     new: newFlight,
-    create
+    create,
+    show,
 }
 
-function index(req, res) {
-    Flight.find({}, function(err, flights) {
-        if (err) return res.redirect('/');
-        flights.sort((a,b) => Number(a.departs) - Number(b.departs));
-        res.render('flights/index', { flights })
-    })
+
+function show(req, res) {
+    Flight.findById(req.params.id, function(err, flight) {
+        flight.destinations.sort((a,b) => Number(a.arrival) - Number(b.arrival));
+        res.render(`flights/show`, { flight })
+    });
+}
+
+function index(req, res) {    
+    Flight.find({})
+        .sort('departs')
+        .exec(function(err, flights) {
+            if (err) return res.redirect('/');
+            res.render('flights/index', { flights });
+        });
 }
 
 function newFlight(req, res) {
