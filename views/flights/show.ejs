@@ -44,4 +44,14 @@
     <h5>No Destinations Yet</h5>
   <% } %>
 
+<form id="add-ticket" action="/flights/<%= flight._id %>/tickets" method="POST">
+  <select name="ticketId">
+    <%- tickets.map(t => 
+      `<option value="${t._id}">${t.name}</option>`    
+    ).join('') %>
+  </select>
+  <button type="submit">Add to Tickets</button>
+</form>  
+
+
 <%- include('../partials/footer')%>
