@@ -12,7 +12,7 @@ module.exports = {
 function show(req, res) {
     Flight.findById(req.params.id, function(err, flight) {
         flight.destinations.sort((a,b) => Number(a.arrival) - Number(b.arrival));
-        Ticket.find({}, function(err, tickets) {
+        Ticket.find({flight: flight._id}, function(err, tickets) {
             res.render(`flights/show`, { flight, tickets })
         })
     });
